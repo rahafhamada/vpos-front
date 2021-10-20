@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, Link } from "react-router-dom";
+import AboutPage from "./pages/AboutPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import HomePage from "./pages/HomePage";
+import PageNotFound from "./pages/PageNotFound";
+import ProductDetails from "./pages/ProductDetails";
+import ProductsPage from "./pages/ProductsPage";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/products">Products</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/about/us">About Us</Link>
+        </li>
+      </ul>
+
+      <Switch>
+        <Route exact path="/" render={() => <HomePage />} />
+        <Route exact path="/products" render={() => <ProductsPage />} />
+        <Route
+          exact
+          path="/products/:productId"
+          render={() => <ProductDetails />}
+        />
+        <Route exact path="/about" render={() => <AboutPage />} />
+        <Route exact path="/about/us" render={() => <AboutUsPage />} />
+        {/*  404 page Must be at the bottom  */}
+        <Route path="*" render={() => <PageNotFound />} />
+      </Switch>
+    </>
   );
-}
+};
 
 export default App;
